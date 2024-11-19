@@ -75,6 +75,12 @@ def select_serie(select, turma):
         options[7].click()
     elif "9" in turma and len(options) > 1:
         options[8].click()
+    elif "1" in turma and len(options) > 1:
+        options[1].click()
+    elif "2" in turma and len(options) > 1:
+        options[2].click()
+    elif "3" in turma and len(options) > 1:
+        options[3].click()
     else:
         raise ValueError(f"{turma} não encontrada ou índice inválido.")
 

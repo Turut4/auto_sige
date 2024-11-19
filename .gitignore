@@ -7,7 +7,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 .envrc
-/data/*
+/data/fundamental/*
+/data/medio/*
+
 # C extensions
 *.so
 

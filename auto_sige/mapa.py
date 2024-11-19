@@ -17,14 +17,18 @@ def mapa_form(driver, turma: str, grade: int):
         select_option(driver.find_element(By.NAME, 'cmbComposicao'), 1)
     if grade == 2:
         select_option(driver.find_element(By.NAME, 'cmbComposicao'), 2)
-    else:
-        print('grade invalida')
-        return
-    time.sleep(2)
+
+    time.sleep(4)
     select_serie(driver.find_element(By.NAME, 'cmbSerie'), turma)
-    time.sleep(2)
+    WebDriverWait(driver, 10).until(
+        EC.staleness_of(driver.find_element(By.NAME, 'cmbTurma'))
+    )
+    time.sleep(4)
     select_option(driver.find_element(By.NAME, 'cmbTurno'), 2)
-    time.sleep(2)
+    WebDriverWait(driver, 10).until(
+        EC.staleness_of(driver.find_element(By.NAME, 'cmbTurma'))
+    )
+    time.sleep(4)
     select_turma(driver.find_element(By.NAME, 'cmbTurma'), turma.upper())
     WebDriverWait(driver, 10).until(
         EC.staleness_of(driver.find_element(By.NAME, 'cmbTurma'))
