@@ -43,11 +43,12 @@ def main():
                 WebDriverWait(driver, 10).until(
                     EC.presence_of_element_located((By.NAME, 'cmbComposicao'))
                 )
-                driver.find_element(By.NAME, 'cmdLimpar').click()
                 time.sleep(5)
 
             except Exception as e:
                 print(f"Erro ao processar a turma {turma}: {str(e)}")
+            finally:
+                driver.find_element(By.NAME, 'cmdLimpar').click()
 
         for index, turma in enumerate(data.turmas_medio, 0):
             try:
@@ -72,6 +73,8 @@ def main():
 
             except Exception as e:
                 print(f"Erro ao processar a turma {turma}: {str(e)}")
+            finally:
+                driver.find_element(By.NAME, 'cmdLimpar').click()
 
     except Exception as e:
         print(f"Erro: {e}")
