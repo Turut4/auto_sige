@@ -14,27 +14,23 @@ def mapa_form(driver, turma: str, index: int):
             (By.TAG_NAME, 'select'))
     )
     select_option(driver.find_element(By.NAME, 'cmbComposicao'), 1)
-    time.sleep(1)
+    time.sleep(2)
     select_serie(driver.find_element(By.NAME, 'cmbSerie'), turma)
-    time.sleep(1)
+    time.sleep(2)
     select_option(driver.find_element(By.NAME, 'cmbTurno'), 2)
-    time.sleep(1)
+    time.sleep(2)
     select_turma(driver.find_element(By.NAME, 'cmbTurma'), turma.upper())
+    WebDriverWait(driver, 10).until(
+        EC.staleness_of(driver.find_element(By.NAME, 'cmbTurma'))
+    )
+    time.sleep(2)
 
     select_option(driver.find_element(By.NAME, 'cmbBimestre'), 3)
-
     click_element(driver, By.NAME, 'cmdGerar')
 
 
 def copy_data(driver, turma, output_csv_path=None):
-    """
-    Extrai os dados de notas de uma turma e organiza-os com as matérias como colunas.
 
-    :param driver: Instância do WebDriver.
-    :param turma: Nome da turma sendo processada.
-    :param output_csv_path: Caminho para salvar o CSV resultante.
-    """
-    # Mapeamento de XPaths
     xpath_mappings = {
         '6': ('/html/body/table[6]/tbody/tr[5]', '/html/body/table[6]/tbody/tr[6]'),
         '7': ('/html/body/table[3]/tbody/tr[35]', '/html/body/table[3]/tbody/tr[36]'),
@@ -92,12 +88,10 @@ def copy_data(driver, turma, output_csv_path=None):
         except Exception as e:
             print(f"Erro ao processar a linha '{key}': {e}")
 
-    # Padronizar o número de colunas
     max_length = max(len(v) for v in data_dict.values())
     for key in data_dict:
         data_dict[key].extend([""] * (max_length - len(data_dict[key])))
 
-    # Criar DataFrame
     data = pd.DataFrame(data_dict)
 
     if output_csv_path:
