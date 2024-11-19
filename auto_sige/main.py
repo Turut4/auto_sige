@@ -1,7 +1,7 @@
 from selenium import webdriver
-from auto_sige.settings import set_chrome_options, config
+from auto_sige.config import set_chrome_options
 from auto_sige.utils import login, close_modal, navigate_to_documents
-from auto_sige.data import data
+from auto_sige import data
 from auto_sige.mapa import mapa_form, copy_data
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC

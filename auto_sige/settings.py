@@ -3,6 +3,6 @@ import os
 
 load_dotenv()
 
-username = os.getenv("USERNAME")
+cpf = os.getenv("CPF")
 password = os.getenv("PASSWORD")
-print(username, password)
+print(cpf, password)

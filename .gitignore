@@ -7,7 +7,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 .envrc
-
+*.csv
 # C extensions
 *.so
 

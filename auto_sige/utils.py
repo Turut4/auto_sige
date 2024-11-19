@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from auto_sige.settings import cpf, password
 from auto_sige import data
 
 
@@ -20,9 +21,9 @@ def click_element(driver, by, element):
 
 
 def login(driver):
-    from auto_sige.config import username, password
-    fill_input_field(driver, By.ID, 'txtCPF', username)
-    fill_input_field(driver, By.ID, 'txtSenha', password)
+    fill_input_field(driver, By.NAME, 'txtCPF', cpf)
+    fill_input_field(driver, By.NAME, 'txtSenha', password)
+
     click_element(driver, By.ID, 'cmdOK')
 
 
