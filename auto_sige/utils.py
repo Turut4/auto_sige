@@ -3,6 +3,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from auto_sige.settings import cpf, password
 from auto_sige import data
+import time
 
 
 def fill_input_field(driver, by, element, value):
@@ -56,7 +57,26 @@ def navigate_to_documents(driver):
 
 def select_option(select, option: int):
     options = select.find_elements(By.TAG_NAME, 'option')
+    if len(options) <= option:
+        raise ValueError(
+            f"Opção {option} não encontrada. Total de opções disponíveis: {len(options)}")
     options[option].click()
+
+
+def select_serie(select, turma):
+    options = select.find_elements(By.TAG_NAME, 'option')
+    print("Opções de série disponíveis:", [opt.text for opt in options])
+
+    if "6" in turma and len(options) > 1:
+        options[5].click()
+    elif "7" in turma and len(options) > 1:
+        options[6].click()
+    elif "8" in turma and len(options) > 1:
+        options[7].click()
+    elif "9" in turma and len(options) > 1:
+        options[8].click()
+    else:
+        raise ValueError(f"{turma} não encontrada ou índice inválido.")
 
 
 def select_turma(select, turma):
@@ -65,16 +85,3 @@ def select_turma(select, turma):
         print(options[i].text)
         if (options[i].text in data.turmas_fundamental or options[i].text in data.turmas_medio) and options[i].text == turma:
             options[i].click()
-
-
-def select_serie(select, turma):
-    options = select.find_elements(By.TAG_NAME, 'option')
-
-    if "6" in turma:
-        options[5].click()
-    if "7" in turma:
-        options[6].click()
-    if "8" in turma:
-        options[7].click()
-    if "9" in turma:
-        options[8].click()
