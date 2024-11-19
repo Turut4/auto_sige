@@ -7,13 +7,19 @@ import time
 from auto_sige.utils import click_element, select_option, select_serie, select_turma
 
 
-def mapa_form(driver, turma: str, index: int):
+def mapa_form(driver, turma: str, grade: int):
 
     WebDriverWait(driver, 10).until(
         EC.presence_of_all_elements_located(
             (By.TAG_NAME, 'select'))
     )
-    select_option(driver.find_element(By.NAME, 'cmbComposicao'), 1)
+    if grade == 1:
+        select_option(driver.find_element(By.NAME, 'cmbComposicao'), 1)
+    if grade == 2:
+        select_option(driver.find_element(By.NAME, 'cmbComposicao'), 2)
+    else:
+        print('grade invalida')
+        return
     time.sleep(2)
     select_serie(driver.find_element(By.NAME, 'cmbSerie'), turma)
     time.sleep(2)
@@ -36,7 +42,12 @@ def copy_data(driver, turma, output_csv_path=None):
         '7': ('/html/body/table[3]/tbody/tr[35]', '/html/body/table[3]/tbody/tr[36]'),
         '8': ('/html/body/table[6]/tbody/tr[10]', '/html/body/table[6]/tbody/tr[11]'),
         '9A': ('/html/body/table[3]/tbody/tr[34]', '/html/body/table[3]/tbody/tr[35]'),
-        '9B': ('/html/body/table[3]/tbody/tr[37]', '/html/body/table[3]/tbody/tr[38]')
+        '9B': ('/html/body/table[3]/tbody/tr[37]', '/html/body/table[3]/tbody/tr[38]'),
+        '1A': ('/html/body/table[3]/tbody/tr[37]', '/html/body/table[3]/tbody/tr[38]'),
+        '1B': ('/html/body/table[3]/tbody/tr[36]', '/html/body/table[3]/tbody/tr[37]'),
+        '2': ('/html/body/table[3]/tbody/tr[35]', '/html/body/table[3]/tbody/tr[36]'),
+        '3A': ('/html/body/table[3]/tbody/tr[26]', '/html/body/table[3]/tbody/tr[27]'),
+        '3B': ('/html/body/table[3]/tbody/tr[30]', '/html/body/table[3]/tbody/tr[31]')
     }
 
     print(f"Processando turma {turma}")
